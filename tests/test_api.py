@@ -17,23 +17,23 @@ DEFAULT_URL = re.compile(r'https://actionnetwork\.org/.*')
 def get_api():
     with open('test_data/self.json', 'r') as f:
         responses.add(GET, DEFAULT_URL, f.read())
-    return pyactionnetwork.ActionNetworkApi(api_key="test")
+    return pyactionnetwork.ActionNetworkAPI(api_key="test")
 
 
 def test_api_creation():
     api = get_api()
-    assert 'motd' in api.config
-    assert api.base_url == 'https://actionnetwork.org/api/v2/'
-    assert api.headers == {'OSDI-API-Token': 'test'}
+    assert 'motd' in api._config
+    assert api._base_url == 'https://actionnetwork.org/api/v2/'
+    assert api._headers == {'OSDI-API-Token': 'test'}
 
 
 def test_resource_to_url():
     api = get_api()
-    assert api.resource_to_url('people') == 'https://actionnetwork.org/api/v2/people'
-    assert api.resource_to_url('events') == 'https://actionnetwork.org/api/v2/events'
+    assert api._resource_to_url('people') == 'https://actionnetwork.org/api/v2/people'
+    assert api._resource_to_url('events') == 'https://actionnetwork.org/api/v2/events'
 
     with pytest.raises(KeyError):
-        api.resource_to_url('asdf')
+        api._resource_to_url('asdf')
 
 
 def test_get_resource():
@@ -90,50 +90,6 @@ def test_create_person():
             'https://actionnetwork.org/api/v2/people/',
             callback=callback)
         api.create_person(**person)
-
-
-def test_update_person():
-    api = get_api()
-
-    person = {
-        'family_name': 'Doe',
-        'given_name': 'John',
-        'address': ['800 Nowhere St.', 'Apt. 1'],
-        'city': 'Philadelphia',
-        'state': 'PA',
-        'country': 'US',
-        'postal_code': 19147,
-        'email': 'john.doe@example.com'
-    }
-
-    def callback(request):
-        payload = json.loads(request.body)
-        headers = {'content_type': 'application/json'}
-
-        assert payload['family_name'] == person['family_name']
-        assert payload['given_name'] == person['given_name']
-
-        assert 'postal_addresses' in payload
-        assert 'email_addresses' in payload
-        address = payload['postal_addresses'][0]
-        email = payload['email_addresses'][0]
-
-        assert address['address_lines'] == person['address']
-        assert address['locality'] == person['city']
-        assert address['region'] == person['state']
-        assert address['country'] == person['country']
-        assert address['postal_code'] == person['postal_code']
-
-        assert email['address'] == person['email']
-
-        return (200, headers, json.dumps(payload))
-
-    with responses.RequestsMock() as resps:
-        resps.add_callback(
-            PUT,
-            'https://actionnetwork.org/api/v2/people/0',
-            callback=callback)
-        api.update_person(person_id=0, **person)
 
 
 def test_get_person():

@@ -32,11 +32,11 @@ setup(
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/phillydsa/pyActionNetwork',
+    url='https://github.com/CentreCoDSA/pyActionNetwork',
 
     # Author details
-    author='Jeremy Low',
-    author_email='jeremy@iseverythingstilltheworst.com',
+    author='Bailey Campbell',
+    author_email='baileycampbell1990@gmail.com',
 
     # Choose your license
     license='MIT',

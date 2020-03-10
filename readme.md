@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/PhillyDSA/pyactionnetwork.svg?style=svg)](https://circleci.com/gh/PhillyDSA/pyactionnetwork) [![codecov](https://codecov.io/gh/PhillyDSA/pyactionnetwork/branch/develop/graph/badge.svg)](https://codecov.io/gh/PhillyDSA/pyactionnetwork)
+[![CircleCI](https://circleci.com/gh/CentreCoDSA/pyactionnetwork.svg?style=svg)](https://circleci.com/gh/CentreCoDSA/pyactionnetwork) [![codecov](https://codecov.io/gh/CentreCoDSA/pyactionnetwork/branch/develop/graph/badge.svg)](https://codecov.io/gh/CentreCoDSA/pyactionnetwork)
 
 # PyActionNetwork
 
@@ -9,8 +9,6 @@ pip install pyactionnetwork
 ```
 
 ## Contributing
-
-All contributors agree to abide by the [Philadelphia DSA Code of Conduct](https://github.com/PhillyDSA/code-of-conduct).
 
 There are additional requirements that can be installed by:
 
